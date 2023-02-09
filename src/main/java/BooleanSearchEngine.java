@@ -7,11 +7,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class BooleanSearchEngine implements SearchEngine {
-    Map<String, List<PageEntry>> wordsStatistics = new TreeMap<>();
+    Map<String, List<PageEntry>> wordsStatistics = new HashMap<>();
 
     public BooleanSearchEngine(File pdfsDir) throws IOException {
-        // прочтите тут все pdf и сохраните нужные данные,
-        // тк во время поиска сервер не должен уже читать файлы
         for (File pdfFile : pdfsDir.listFiles()) {
             String pdfName = pdfFile.getName();
             var doc = new PdfDocument(new PdfReader(pdfFile));
@@ -47,6 +45,8 @@ public class BooleanSearchEngine implements SearchEngine {
 
     @Override
     public List<PageEntry> search(String word) {
-        return wordsStatistics.get(word.toLowerCase());
+        List<PageEntry> list = wordsStatistics.get(word.toLowerCase());
+        Collections.sort(list);
+        return list;
     }
 }
