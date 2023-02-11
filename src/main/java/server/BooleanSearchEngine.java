@@ -63,7 +63,7 @@ public class BooleanSearchEngine implements SearchEngine {
             List<String> filteredWordsForSearch = wordsForSearch.stream()
                     .filter(wordForFilter -> !stopWords.contains(wordForFilter))
                     .collect(Collectors.toList());
-            Map<PdfPage, Integer> dictionary = new HashMap<>(); // создаем словарь, где ключ - это объект с именем pdf, а значение - количество страниц
+            Map<PdfPage, Integer> dictionary = new HashMap<>(); // создаем словарь, где ключ - это объект с именем pdf и номером страницы, а значение - количество страниц
             for (String filteredWord : filteredWordsForSearch) {
                 List<PageEntry> listForOneWord = wordsStatistics.get(filteredWord.toLowerCase());
                 for (PageEntry pageEntry : listForOneWord) {
