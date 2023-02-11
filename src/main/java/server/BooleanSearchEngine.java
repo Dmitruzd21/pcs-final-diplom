@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class BooleanSearchEngine implements SearchEngine {
-    Map<String, List<PageEntry>> wordsStatistics = new HashMap<>();
+    private Map<String, List<PageEntry>> wordsStatistics = new HashMap<>();
     private static final String STOP_WORDS = "stop-ru.txt";
 
     public BooleanSearchEngine(File pdfsDir) throws IOException {
@@ -32,7 +32,7 @@ public class BooleanSearchEngine implements SearchEngine {
                     freqsInOnePage.put(word, freqsInOnePage.getOrDefault(word, 0) + 1);
                 }
                 freqsInOnePage.forEach((word, freq) -> {
-                            if (wordsStatistics.get(word) == null) {
+                            if (!wordsStatistics.containsKey(word)) {
                                 List<PageEntry> initialList = new ArrayList<>();
                                 initialList.add(new PageEntry(pdfName, pageNumber, freq));
                                 wordsStatistics.put(word, initialList);
