@@ -1,3 +1,5 @@
+package client;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +14,7 @@ public class Client {
         try (Socket socket = new Socket(ip, port);
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-            out.println("бизнес");
+            out.println("бизнес менеджер");
             System.out.println(in.readLine());
         } catch (IOException e) {
             e.printStackTrace();

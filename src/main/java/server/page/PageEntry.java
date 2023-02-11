@@ -1,3 +1,6 @@
+package server.page;
+
+import java.util.Objects;
 
 public class PageEntry implements Comparable<PageEntry> {
     private final String pdfName;
@@ -17,7 +20,20 @@ public class PageEntry implements Comparable<PageEntry> {
 
     @Override
     public String toString() {
-        return "PageEntry{pdf=" + pdfName + ", page=" + page + ", count=" + count + "}";
+        return "server.page.PageEntry{pdf=" + pdfName + ", page=" + page + ", count=" + count + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PageEntry pageEntry = (PageEntry) o;
+        return page == pageEntry.getPage() && count == pageEntry.getCount() && pdfName.equals(pageEntry.getPdfName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pdfName, page, count);
     }
 
     public String getPdfName() {

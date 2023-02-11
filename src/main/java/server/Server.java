@@ -1,3 +1,8 @@
+package server;
+
+import server.page.PageEntry;
+import server.page.PageEntryListSerializer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,7 +30,12 @@ public class Server {
                      PrintWriter out = new PrintWriter(socket.getOutputStream())) {
                     System.out.println("Новый клиент подключился");
                     String clientRequest = in.readLine();
-                    List<PageEntry> wordsStatistics = booleanSearchEngine.search(clientRequest);
+                    List<PageEntry> wordsStatistics = null;
+                    try {
+                        wordsStatistics = booleanSearchEngine.search(clientRequest);
+                    } catch (NullPointerException ex) {
+                        out.println(ex.getMessage());
+                    }
                     pageEntryListSerializer = new PageEntryListSerializer(wordsStatistics);
                     out.println(pageEntryListSerializer.convertToJson());
                 }
